@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/wishlist}
+    username: ${POSTGRES_USER:wishlist}
+    password: ${POSTGRES_PASSWORD:wishlist}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    tryItOutEnabled: true
+    
+jwt:
+  secret: ${JWT_SECRET:VerySecureJwtSecretKey123!@#VerySecureJwtSecretKey123!@#}
+  expiration: 86400000 # 24 часа
