@@ -4,17 +4,18 @@ REST API для управления списками желаний с возм
 
 ## Технологии
 
-- Java 22
-- Spring Boot
-- PostgreSQL
+- Java 17
+- Spring Boot 3.2.2
+- PostgreSQL 16
 - Spring Security с JWT аутентификацией
 - OpenAPI/Swagger документация
-- Docker
+- Docker и Docker Compose
+- Maven
 
 ## Требования
 
 - Docker и Docker Compose
-- Java 22 (для локальной разработки)
+- Java 17 (для локальной разработки)
 - Maven (для локальной разработки)
 
 ## Запуск приложения
@@ -29,6 +30,7 @@ docker-compose up -d
 ```
 
 Приложение будет доступно по адресу: http://localhost:8080
+База данных будет доступна по адресу: localhost:5432
 
 ### Локальный запуск для разработки
 
@@ -48,6 +50,18 @@ export JWT_SECRET=your_jwt_secret
 3. Запустите приложение:
 ```bash
 ./mvnw spring-boot:run
+```
+
+## Управление контейнерами
+
+### Экспорт контейнера в TAR архив:
+```bash
+docker save -o wishlist-app.tar wishlist-app
+```
+
+### Импорт на другой машине:
+```bash
+docker load -i wishlist-app.tar
 ```
 
 ## API Документация
@@ -79,15 +93,34 @@ http://localhost:8080/swagger-ui.html
 - DELETE /api/wishlists/{wishListId}/gifts/{id} - Удаление подарка
 - POST /api/wishlists/{wishListId}/gifts/{id}/purchase - Пометка подарка как купленного
 
-## Тестирование
+## Безопасность
 
-Для запуска тестов выполните:
-```bash
-./mvnw test
-```
+- Аутентификация на основе JWT токенов
+- Использование UUID для идентификаторов
+- Безопасное хранение паролей
+- Контроль доступа на основе ролей
+
+## Структура базы данных
+
+Основные сущности:
+- Пользователи (Users)
+- Списки желаний (WishLists)
+- Подарки (Gifts)
+
+Все сущности используют UUID в качестве первичного ключа для повышенной безопасности.
 
 ## Переменные окружения
 
+Настройте следующие переменные в `docker-compose.yml`:
+
+```yaml
+POSTGRES_URL=jdbc:postgresql://db:5432/wishlist
+POSTGRES_USER=wishlist
+POSTGRES_PASSWORD=wishlist
+JWT_SECRET=your_jwt_secret_key_here_please_change_in_production
+```
+
+### Описание переменных:
 - `POSTGRES_URL` - URL подключения к базе данных
 - `POSTGRES_USER` - Имя пользователя базы данных
 - `POSTGRES_PASSWORD` - Пароль базы данных

@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -61,5 +62,13 @@ public class UserService {
     public User getUserById(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));
+    }
+
+    /**
+     * Получение списка всех пользователей
+     * @return список пользователей
+     */
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
