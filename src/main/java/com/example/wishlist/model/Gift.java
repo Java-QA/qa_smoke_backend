@@ -42,9 +42,15 @@ public class Gift {
     private String imageUrl;
 
     /**
+     * Ссылка на магазин подарка
+     */
+    @Column(name = "store_url")
+    private String storeUrl;
+
+    /**
      * Цена подарка
      */
-    @Column(name = "price", precision = 10, scale = 2)
+    @Column(name = "price", precision = 10, scale = 2, nullable = false)
     private BigDecimal price;
 
     /**

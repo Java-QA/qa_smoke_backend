@@ -50,6 +50,7 @@ public class GiftService {
         gift.setName(giftDto.getName());
         gift.setDescription(giftDto.getDescription());
         gift.setImageUrl(giftDto.getImageUrl());
+        gift.setStoreUrl(giftDto.getStoreUrl());
         gift.setPrice(giftDto.getPrice());
         gift.setReserved(false);
         

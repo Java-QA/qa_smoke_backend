@@ -1,0 +1,1 @@
+ALTER TABLE gifts ADD COLUMN store_url VARCHAR(255);
